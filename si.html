@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALI RAZA | WEBSITE</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <style>
+         @media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nav-links {
+    justify-content: center;
+    margin: 10px 0;
+  }
+
+  .search-box {
+    max-width: 100%;
+  }
+}
+* {
+  box-sizing: border-box;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 20px;
+  background: #1e1e1e;
+  color: white;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+}
+
+.search-box {
+  flex: 1;
+  max-width: 250px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: none;
+}
+.hero{
+  height: 25rem;
+}
+    
+    
+  
+
+
+
+    nav .logo {
+      font-size: 24px;
+      font-weight: bold;
+      margin-right: 20px;
+    }
+
+    nav .search-container {
+      position: relative;
+      flex: 1;
+    }
+
+    nav input[type="text"] {
+      padding: 8px 10px;
+      width: 100%;
+      font-size: 16px;
+      border-radius: 4px;
+      border: none;
+    }
+
+    nav input[type="text"]:focus {
+      outline: none;
+    }
+
+    /* Suggestions box */
+    #suggestions {
+      position: absolute;
+      background: white;
+      color: black;
+      width: 100%;
+      max-height: 250px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      border-top: none;
+      z-index: 100;
+    }
+
+    #suggestions .suggestion-item {
+      display: flex;
+      align-items: center;
+      padding: 8px 10px;
+      cursor: pointer;
+      border-bottom: 1px solid #eee;
+    }
+
+    #suggestions .suggestion-item:hover {
+      background-color: #f0f0f0;
+    }
+
+    #suggestions img {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    #info {
+      margin: 20px;
+      padding: 15px;
+      border: 1px solid #ccc;
+      max-width: 600px;
+    }
+    #e1{
+         background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
+            url('https://via.placeholder.com/1200x500') center/cover !important;
+            color: white !important;
+           
+    }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg bg-white shadow-sm py-3">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+      <img src="./Screenshot_2026-01-10_201114-removebg-preview.png" width="45">
+      <div>
+        <strong class="text-primary">ALI RAZA</strong><br>
+        <small>Website Developer</small>
+      </div>
+    </a>
+  </div>
+</nav>
+
+<br><br><br>
+
+<div class="container">
+
+  <!-- About Short -->
+  <div class="card abc mb-4">
+    <div class="card-body">
+      <h5 class="card-title fw-bold">Ali Raza</h5>
+      <p class="card-text">
+        Ali Raza is a passionate and skilled website developer specializing in modern, responsive, and user-friendly web designs. He focuses on creating clean layouts, efficient code, and visually appealing websites that help businesses and individuals build a strong online presence.
+      </p>
+    </div>
+  </div>
+
+  <!-- Key Facts -->
+  <div class="card abc mb-4">
+    <div class="card-body">
+      <h5 class="card-title fw-bold">Key Facts About Ali Raza</h5>
+
+      <table class="table table-dark table-hover">
+        <tr>
+          <td>Profession:</td>
+          <td>Website Developer</td>
+        </tr>
+        <tr>
+          <td>Skills:</td>
+          <td>HTML, CSS, Bootstrap, JavaScript</td>
+        </tr>
+        <tr>
+          <td>Experience:</td>
+          <td>Frontend & Responsive Web Design</td>
+        </tr>
+        <tr>
+          <td>Focus:</td>
+          <td>Clean UI, Performance, Mobile-First Design</td>
+        </tr>
+        <tr>
+          <td>Projects:</td>
+          <td>Personal Websites, Business Sites, Portfolios</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Detailed About -->
+  <div class="card abc mb-4">
+    <div class="card-body">
+      <h5 class="card-title fw-bold">About Ali Raza</h5>
+      <p class="card-text">
+        Ali Raza is a dedicated website developer with a strong passion for building modern and responsive websites. He believes that a website is not just about looks, but also about performance, accessibility, and user experience. With a solid foundation in HTML, CSS, and Bootstrap, Ali Raza creates layouts that are clean, structured, and easy to navigate.
+        <br><br>
+        He focuses on writing clean and maintainable code, ensuring that websites load fast and work smoothly across all devices. From simple landing pages to multi-page websites, his goal is always to deliver high-quality results that meet client requirements.
+        <br><br>
+        Ali Raza continues to learn new web technologies and trends to stay updated in the fast-changing world of web development. His commitment to quality and detail makes him a reliable choice for professional website development.
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<footer class="bg-dark text-center text-white py-4 mt-5">
+  <p class="mb-0">© 2026 <span class="text-primary">ALI RAZA</span> — All Rights Reserved</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

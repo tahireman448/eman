@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fashion Store Pro</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body {
+    font-family: Arial;
+    background: linear-gradient(to right,#f5f7fa,#c3cfe2);
+    transition: 0.4s;
+}
+.dark-mode {
+    background: #1e1e1e;
+    color: white;
+}
+header {
+    background: black;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+.card {
+    border-radius: 15px;
+    transition: 0.4s;
+    overflow: hidden;
+}
+.card:hover {
+    transform: scale(1.05);
+}
+.card img {
+    height: 180px;
+    object-fit: cover;
+}
+button {
+    border-radius: 20px !important;
+}
+#storePage, #walletPage { display:none; }
+.cart-box {
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+}
+.dark-mode .cart-box {
+    background: #333;
+}
+.success-popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: green;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+@keyframes fadeIn {
+    from{opacity:0;}
+    to{opacity:1;}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Fashion Store Pro 🛍️</h1>
+<button class="btn btn-light" onclick="toggleDark()">🌙 Dark Mode</button>
+</header>
+
+<div class="container text-center mt-4" id="loginPage">
+<h3>Login</h3>
+<input type="text" id="username" placeholder="Username" class="form-control w-50 mx-auto"><br>
+<input type="password" id="password" placeholder="Password" class="form-control w-50 mx-auto"><br>
+<button class="btn btn-dark" onclick="login()">Login</button>
+</div>
+
+<div class="container mt-4" id="storePage">
+
+<h4>Welcome, <span id="userDisplay"></span></h4>
+
+<p>EasyPaisa: Rs <span id="easyBalance"></span> |
+JazzCash: Rs <span id="jazzBalance"></span></p>
+
+<button class="btn btn-warning" onclick="showWallet()">Wallet</button>
+
+<input type="text" id="search" placeholder="Search products..." class="form-control w-50 my-3">
+
+<div class="row" id="productList"></div>
+
+<div class="cart-box mt-4">
+<h4>🛒 Cart</h4>
+<ul id="cartList"></ul>
+<h5>Total: Rs <span id="totalAmount">0</span></h5>
+
+<input type="text" id="discountCode" placeholder="Discount Code" class="form-control w-50">
+<button class="btn btn-info mt-2" onclick="applyDiscount()">Apply Discount</button>
+<br><br>
+<button class="btn btn-success" onclick="checkout()">Checkout</button>
+</div>
+
+</div>
+
+<div class="container mt-4 text-center" id="walletPage">
+<h3>Wallet</h3>
+
+<input type="number" id="easyAmount" placeholder="Add EasyPaisa" class="form-control w-50 mx-auto">
+<button class="btn btn-dark mt-2" onclick="addMoney('easy')">Add</button>
+
+<input type="number" id="jazzAmount" placeholder="Add JazzCash" class="form-control w-50 mx-auto mt-3">
+<button class="btn btn-dark mt-2" onclick="addMoney('jazz')">Add</button>
+
+<br><br>
+<button class="btn btn-danger" onclick="backToStore()">Back</button>
+</div>
+
+<div class="success-popup" id="popup">Payment Successful 🎉</div>
+
+<audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-09.mp3"></audio>
+
+<script>
+let easyPaisa = localStorage.getItem("easy") ? parseInt(localStorage.getItem("easy")) : 0;
+let jazzCash = localStorage.getItem("jazz") ? parseInt(localStorage.getItem("jazz")) : 0;
+let cart = [];
+let total = 0;
+
+const products = [
+{ name:"Shirt", price:500, img:"https://picsum.photos/200?1", rating:4 },
+{ name:"Jeans", price:800, img:"https://picsum.photos/200?2", rating:5 },
+{ name:"Jacket", price:1200, img:"https://picsum.photos/200?3", rating:4 },
+{ name:"Shoes", price:1500, img:"https://picsum.photos/200?4", rating:5 },
+{ name:"Watch", price:2000, img:"https://picsum.photos/200?5", rating:3 }
+];
+
+function renderProducts(){
+productList.innerHTML="";
+products.forEach(p=>{
+productList.innerHTML+=`
+<div class="col-md-4 mb-4">
+<div class="card">
+<img src="${p.img}" class="card-img-top">
+<div class="card-body text-center">
+<h5>${p.name}</h5>
+<p>Rs ${p.price}</p>
+<p>⭐ ${p.rating}/5</p>
+<button class="btn btn-dark" onclick="addToCart('${p.name}',${p.price})">Add</button>
+</div>
+</div>
+</div>
+`;
+});
+}
+
+function login(){
+if(username.value && password.value){
+loginPage.style.display="none";
+storePage.style.display="block";
+userDisplay.textContent=username.value;
+updateWallet();
+renderProducts();
+}
+}
+
+function addToCart(name,price){
+clickSound.play();
+cart.push({name,price});
+total+=price;
+cartList.innerHTML+=`<li>${name} - Rs ${price} <button onclick="removeItem(${price})">❌</button></li>`;
+totalAmount.textContent=total;
+}
+
+function removeItem(price){
+total-=price;
+totalAmount.textContent=total;
+}
+
+function applyDiscount(){
+if(discountCode.value==="SAVE10"){
+total*=0.9;
+totalAmount.textContent=Math.floor(total);
+alert("10% Discount Applied!");
+}
+}
+
+function checkout(){
+let method=prompt("easy or jazz?");
+if(method==="easy" && easyPaisa>=total){
+easyPaisa-=total;
+success();
+}
+else if(method==="jazz" && jazzCash>=total){
+jazzCash-=total;
+success();
+}
+else alert("Not enough balance!");
+updateWallet();
+}
+
+function success(){
+popup.style.display="block";
+setTimeout(()=>popup.style.display="none",2000);
+cartList.innerHTML="";
+total=0;
+totalAmount.textContent=0;
+}
+
+function addMoney(type){
+if(type==="easy") easyPaisa+=parseInt(easyAmount.value);
+if(type==="jazz") jazzCash+=parseInt(jazzAmount.value);
+updateWallet();
+}
+
+function updateWallet(){
+easyBalance.textContent=easyPaisa;
+jazzBalance.textContent=jazzCash;
+localStorage.setItem("easy",easyPaisa);
+localStorage.setItem("jazz",jazzCash);
+}
+
+function showWallet(){
+storePage.style.display="none";
+walletPage.style.display="block";
+}
+function backToStore(){
+walletPage.style.display="none";
+storePage.style.display="block";
+}
+function toggleDark(){
+document.body.classList.toggle("dark-mode");
+}
+</script>
+
+</body>
+</html>

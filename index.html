@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <title>Eman Tahir | Portfolio</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- CSS VARIABLES (MODES) --- */
+        :root[data-theme="light"] {
+            --primary: #2563eb;
+            --primary-glow: rgba(37, 99, 235, 0.2);
+            --bg: #ffffff;
+            --nav-bg: rgba(255, 255, 255, 0.8);
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --card-bg: #f8fafc;
+            --input-bg: #ffffff;
+            --input-border: #e2e8f0;
+            --loader-bg: #ffffff;
+        }
+        /* --- SOCIAL MEDIA ICONS --- */
+        .social-bar { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; }
+        .social-icon { width: 50px; height: 50px; background: var(--card-bg); border: 1px solid var(--input-border); border-radius: 15px; display: flex; align-items: center; justify-content: center; color: var(--text-main); font-size: 1.2rem; text-decoration: none; transition: 0.3s; }
+        .social-icon:hover { background: var(--primary); color: white; transform: translateY(-5px); box-shadow: 0 10px 20px var(--primary-glow); }
+
+        :root[data-theme="dark"] {
+            --primary: #60a5fa;
+            --primary-glow: rgba(96, 165, 250, 0.3);
+            --bg: #0f172a;
+            --nav-bg: rgba(15, 23, 42, 0.9);
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --card-bg: #1e293b;
+            --input-bg: #0f172a;
+            --input-border: #334155;
+            --loader-bg: #0f172a;
+        }
+
+        /* --- GLOBAL STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            cursor: none; /* Custom cursor trigger */
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            transition: background-color 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* --- LOADING SCREEN --- */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: var(--loader-bg);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s ease;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--text-muted);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* --- CUSTOM CURSOR --- */
+        .cursor-dot, .cursor-outline {
+            position: fixed;
+            top: 0; left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+            transition: transform 0.1s ease;
+        }
+        .cursor-dot { width: 8px; height: 8px; background: var(--primary); }
+        .cursor-outline { width: 30px; height: 30px; border: 2px solid var(--primary); transition: 0.15s ease-out; }
+
+        /* --- LOGO DESIGN --- */
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-box {
+            background: var(--primary);
+            color: white;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1.4rem;
+            box-shadow: 0 8px 16px var(--primary-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-box::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .logo-text {
+            font-weight: 800;
+            font-size: 1.3rem;
+            letter-spacing: -1px;
+            color: var(--text-main);
+            text-transform: uppercase;
+        }
+
+        .logo-text span { color: var(--primary); font-weight: 400; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+        }
+
+        .nav-right { display: flex; align-items: center; gap: 2rem; }
+        .nav-links a { 
+            text-decoration: none; 
+            color: var(--text-main); 
+            font-weight: 600; 
+            margin-left: 1.5rem;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: var(--primary); }
+
+        .theme-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+        }
+
+        [data-theme="light"] .moon, [data-theme="dark"] .sun { display: none; }
+
+        /* --- HERO SECTION --- */
+        .hero { padding: 8rem 0; text-align: center; }
+        h1 { font-size: clamp(3rem, 10vw, 5rem); font-weight: 800; letter-spacing: -3px; margin-bottom: 1.5rem; }
+        .hero-desc { color: var(--text-muted); font-size: 1.2rem; max-width: 650px; margin: 0 auto 2.5rem; }
+        
+        .badge {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 0.75rem;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .floating { animation: float 4s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: inline-block;
+            box-shadow: 0 10px 20px var(--primary-glow);
+        }
+        .btn:hover { transform: scale(1.05); }
+
+        /* --- SKILLS GRID --- */
+        section { padding: 6rem 0; text-align: center; }
+        h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 3rem; letter-spacing: -1px; }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .skill-item {
+            background: var(--card-bg);
+            padding: 2.5rem 1rem;
+            border-radius: 25px;
+            border: 1px solid var(--input-border);
+            font-weight: 800;
+            transition: 0.4s;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-10px) rotate(2deg);
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* --- CONTACT CARD --- */
+        .contact-card {
+            background: var(--card-bg);
+            padding: 4rem 2.5rem;
+            border-radius: 40px;
+            border: 1px solid var(--input-border);
+            max-width: 850px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .styled-form { margin-top: 3rem; text-align: left; }
+        .form-row { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; }
+        .input-group { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+        
+        label { font-weight: 600; font-size: 0.85rem; color: var(--text-muted); }
+        
+        input, select, textarea {
+            padding: 1.1rem;
+            border-radius: 15px;
+            border: 1px solid var(--input-border);
+            background: var(--input-bg);
+            color: var(--text-main);
+            outline: none;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-glow); }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1.2rem;
+            border-radius: 15px;
+            font-weight: 800;
+            font-size: 1rem;
+            margin-top: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px var(--primary-glow); }
+
+        footer { padding: 4rem 0; text-align: center; color: var(--text-muted); border-top: 1px solid var(--input-border); font-size: 0.9rem; }
+
+        /* --- RESPONSIVENESS --- */
+        @media (max-width: 768px) {
+            .form-row { flex-direction: column; gap: 1.5rem; }
+            .nav-links, .cursor-dot, .cursor-outline { display: none; }
+            * { cursor: auto; }
+            h1 { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <div class="container">
+        <nav data-aos="fade-down">
+            <a href="#" class="logo-wrapper">
+                <div class="logo-box">E</div>
+                <div class="logo-text">EMAN <span>TAHIR</span></div>
+            </a>
+            <div class="nav-right">
+                <div class="nav-links">
+                    <a href="#about">About</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <button id="theme-toggle" class="theme-btn">
+                    <span class="sun">☀️ Light Mode</span>
+                    <span class="moon">🌙 Dark Mode</span>
+                </button>
+            </div>
+        </nav>
+        <header class="hero">
+            <div data-aos="zoom-in" class="floating"><span class="badge">Bahria College Student</span></div>
+            <h1 data-aos="fade-up" data-aos-delay="200">Eman <span style="color: var(--primary);">Tahir</span></h1>
+            <p data-aos="fade-up" data-aos-delay="400" class="hero-desc">Building digital experiences with modern code. I specialize in turning complex ideas into simple, beautiful websites.</p>
+            
+            <div class="social-bar" data-aos="fade-up" data-aos-delay="600">
+                <a href="https://github.com/tahireman448/WEBSITE" class="social-icon"><i class="fab fa-github"></i></a>
+                <a href="" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            </div>
+        </header>
+
+        <header class="hero">
+            <div data-aos="zoom-in" data-aos-delay="200" class="floating">
+                <span class="badge">Bahria College Student</span>
+            </div>
+            <h1 data-aos="fade-up" data-aos-delay="400">Eman <span style="color: var(--primary);">Tahir</span></h1>
+            <p data-aos="fade-up" data-aos-delay="600" class="hero-desc">
+                Building digital experiences with modern code. 
+                I specialize in turning complex ideas into simple, beautiful websites.
+            </p>
+            <div data-aos="fade-up" data-aos-delay="800">
+                <a href="#contact" class="btn">Let's Connect</a>
+            </div>
+        </header>
+
+        <section id="about" data-aos="fade-up">
+            <h2>About Me</h2>
+            <div style="max-width: 700px; margin: 0 auto; color: var(--text-muted); font-size: 1.2rem;">
+                <p>Hello! I'm Eman, a passionate student at <strong>Bahria College</strong>. I spend my time exploring the intersection of design and technology, learning how to build tools that make life easier.</p>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2 data-aos="fade-up">My Expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-item" data-aos="flip-up" data-aos-delay="100">HTML5</div>
+                <div class="skill-item" data-aos="flip-up" data-aos-delay="200">CSS3</div>
+                <div class="skill-item" data-aos="flip-up" data-aos-delay="300">JavaScript</div>
+                <div class="skill-item" data-aos="flip-up" data-aos-delay="400">Tailwind</div>
+                <div class="skill-item" data-aos="flip-up" data-aos-delay="500">React</div>
+                <div class="skill-item" data-aos="flip-up" data-aos-delay="600">UI Design</div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="contact-card" data-aos="zoom-in">
+                <h2>Start a Conversation</h2>
+                <p style="color: var(--text-muted);">Have an idea or a question? I'm always open to chatting.</p>
+                <br> 
+                <h4 style="font-size: 1.2rem;">Let's Start a New Project✨</h4>
+                
+                <form action="https://formspree.io/f/xlgwyaap" method="POST" class="styled-form">
+                    <div class="form-row">
+                        <div class="input-group" data-aos="fade-right">
+                            <label>Full Name</label>
+                            <input type="text" name="name" placeholder="Eman Tahir" required>
+                        </div>
+                        <div class="input-group" data-aos="fade-left">
+                            <label>Email Address</label>
+                            <input type="email" name="email" placeholder="eman@example.com" required>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group" data-aos="fade-up" style="margin-bottom: 1.5rem;">
+                        <label>Inquiry Type</label>
+                        <select name="subject">
+                            <option selected disabled>Select Purpose</option>
+                            <option>Web Development</option>
+                            <option>UI Design</option>
+                            <option>Collaboration</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group" data-aos="fade-up" style="margin-bottom: 2rem;">
+                        <label>Message</label>
+                        <textarea name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Send Message ✨</button>
+                </form>
+            </div>
+        </section>
+
+        <footer>
+            <p>© <span id="year"></span> Eman Tahir • Bahria College • Built with Passion</p>
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // 1. Loading Screen
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            loader.style.opacity = '0';
+            setTimeout(() => loader.style.display = 'none', 200);
+        });
+
+        // 2. Custom Cursor
+        const dot = document.querySelector(".cursor-dot");
+        const outline = document.querySelector(".cursor-outline");
+        window.addEventListener("mousemove", (e) => {
+            dot.style.left = outline.style.left = `${e.clientX}px`;
+            dot.style.top = outline.style.top = `${e.clientY}px`;
+        });
+
+        // 3. Theme Toggle
+        const btn = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+
+        btn.addEventListener('click', () => {
+            const current = html.getAttribute('data-theme');
+            const target = current === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', target);
+            localStorage.setItem('theme', target);
+        });
+
+        // 4. Initialization
+        AOS.init({ duration: 1000, once: true });
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

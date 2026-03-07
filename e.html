@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>Fashion Store Wallet Pro</title>
+
+<style>
+body {
+    font-family: Arial;
+    margin: 0;
+    background: linear-gradient(to right, #f4f4f4, #e6e6e6);
+    overflow-x: hidden;
+}
+
+header {
+    background: black;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    animation: slideDown 1s ease;
+}
+
+.container {
+    padding: 20px;
+    text-align: center;
+    animation: fadeIn 1s ease;
+}
+
+.card {
+    background: white;
+    padding: 15px;
+    margin: 15px;
+    display: inline-block;
+    width: 220px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: 0.4s;
+}
+
+.card:hover {
+    transform: scale(1.1) rotate(2deg);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+button {
+    background: black;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #444;
+    transform: scale(1.1);
+}
+
+input {
+    font-size: larger;
+    width: 40%;
+    border-radius: 1rem;
+    height: 3rem;
+    padding-left: 10px;
+}
+
+#storePage, #walletPage { display: none; }
+
+.cart-box {
+    background: white;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 15px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-100px); }
+    to { transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Fashion Store Pro 🛍️</h1>
+</header>
+
+<!-- LOGIN PAGE -->
+<div class="container" id="loginPage">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username"><br><br>
+    <input type="password" id="password" placeholder="Password"><br><br>
+    <button onclick="login()">Login</button>
+</div>
+
+<!-- STORE PAGE -->
+<div class="container" id="storePage">
+    <h2>Welcome, <span id="userDisplay"></span></h2>
+
+    <h4>EasyPaisa: Rs <span id="easyBalance">0</span></h4>
+    <h4>JazzCash: Rs <span id="jazzBalance">0</span></h4>
+
+    <button onclick="showWallet()">Open Wallet</button>
+
+    <h3 class="mt-4">Products</h3>
+
+    <!-- Products -->
+    <div class="card">
+        <h4>Shirt</h4>
+        <p>Rs 500</p>
+        <button onclick="addToCart('Shirt',500)">Add to Cart</button>
+    </div>
+
+    <div class="card">
+        <h4>Jeans</h4>
+        <p>Rs 800</p>
+        <button onclick="addToCart('Jeans',800)">Add to Cart</button>
+    </div>
+
+    <div class="card">
+        <h4>Jacket</h4>
+        <p>Rs 1200</p>
+        <button onclick="addToCart('Jacket',1200)">Add to Cart</button>
+    </div>
+
+    <div class="card">
+        <h4>Shoes</h4>
+        <p>Rs 1500</p>
+        <button onclick="addToCart('Shoes',1500)">Add to Cart</button>
+    </div>
+
+    <div class="card">
+        <h4>Watch</h4>
+        <p>Rs 2000</p>
+        <button onclick="addToCart('Watch',2000)">Add to Cart</button>
+    </div>
+
+    <!-- Cart Section -->
+    <div class="cart-box">
+        <h3>🛒 Cart</h3>
+        <ul id="cartList"></ul>
+        <h4>Total: Rs <span id="totalAmount">0</span></h4>
+        <button onclick="checkout()">Checkout</button>
+    </div>
+</div>
+
+<!-- WALLET PAGE -->
+<div class="container" id="walletPage">
+    <h2>Wallet Management</h2>
+
+    <h3>EasyPaisa</h3>
+    <input type="number" id="easyAmount" placeholder="Add Amount">
+    <button onclick="addMoney('easy')">Add</button>
+
+    <h3>JazzCash</h3>
+    <input type="number" id="jazzAmount" placeholder="Add Amount">
+    <button onclick="addMoney('jazz')">Add</button>
+
+    <h3>Redeem Code</h3>
+    <input type="text" id="redeemCode" placeholder="Enter Code">
+    <button onclick="redeem()">Redeem</button>
+
+    <br><br>
+    <button onclick="backToStore()">Back</button>
+</div>
+
+<script>
+let easyPaisa = 0;
+let jazzCash = 0;
+let currentUser = "";
+let cart = [];
+let total = 0;
+
+function login() {
+    let user = username.value;
+    let pass = password.value;
+
+    if(user && pass) {
+        currentUser = user;
+        loginPage.style.display = "none";
+        storePage.style.display = "block";
+        userDisplay.textContent = currentUser;
+        updateWallet();
+    } else {
+        alert("Enter username & password");
+    }
+}
+
+function addToCart(name, price) {
+    cart.push({name, price});
+    total += price;
+
+    let li = document.createElement("li");
+    li.textContent = name + " - Rs " + price;
+    cartList.appendChild(li);
+
+    totalAmount.textContent = total;
+}
+
+function checkout() {
+    let method = prompt("Pay with: easy or jazz?");
+
+    if(method === "easy" && easyPaisa >= total) {
+        easyPaisa -= total;
+        alert("Payment Successful ✅");
+        clearCart();
+    }
+    else if(method === "jazz" && jazzCash >= total) {
+        jazzCash -= total;
+        alert("Payment Successful ✅");
+        clearCart();
+    }
+    else {
+        alert("Not enough balance or wrong method");
+    }
+
+    updateWallet();
+}
+
+function clearCart(){
+    cart = [];
+    total = 0;
+    cartList.innerHTML = "";
+    totalAmount.textContent = 0;
+}
+
+function showWallet() {
+    storePage.style.display = "none";
+    walletPage.style.display = "block";
+}
+
+function backToStore() {
+    walletPage.style.display = "none";
+    storePage.style.display = "block";
+}
+
+function addMoney(type) {
+    if(type === "easy") {
+        let amount = parseInt(easyAmount.value);
+        if(amount > 0) easyPaisa += amount;
+    }
+    if(type === "jazz") {
+        let amount = parseInt(jazzAmount.value);
+        if(amount > 0) jazzCash += amount;
+    }
+    alert("Money Added ✅");
+    updateWallet();
+}
+
+function redeem() {
+    let code = redeemCode.value;
+
+    if(code === "BONUS200") {
+        easyPaisa += 100;
+        jazzCash += 100;
+        alert("Redeem Successful! 100 added in both wallets 🎉");
+    } else {
+        alert("Invalid Code");
+    }
+
+    updateWallet();
+}
+
+function updateWallet() {
+    easyBalance.textContent = easyPaisa;
+    jazzBalance.textContent = jazzCash;
+}
+</script>
+
+</body>
+</html>

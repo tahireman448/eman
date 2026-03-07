@@ -1,0 +1,380 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daraz Clone</title>
+  <style>
+    
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    .navbar {
+      background-color: #f85606;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .logo span {
+      color: #fff176;
+    }
+
+    .search-container {
+      display: flex;
+      flex: 1;
+      justify-content: center;
+      margin: 10px;
+    }
+
+    .search-bar {
+      width: 60%;
+      padding: 8px;
+      border: none;
+      border-radius: 4px 0 0 4px;
+      outline: none;
+    }
+
+    .search-btn {
+      background-color: #fff;
+      color: #f85606;
+      border: none;
+      padding: 8px 16px;
+      cursor: pointer;
+      border-radius: 0 4px 4px 0;
+      font-weight: bold;
+    }
+
+    .cart {
+      margin-left: 15px;
+      font-weight: bold;
+    }
+
+    
+    .banner {
+      background-color: #ffe9e0;
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    .banner h1 {
+      margin: 0;
+      color: #f85606;
+    }
+
+    
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 20px; 
+    }
+    .nav{
+      height: 45%;
+    }
+
+    .product {
+      background-color: #fff;
+      border-radius: 8px;
+      margin: 10px;
+      padding: 15px;
+      text-align: center;
+      width: 200px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .product:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+.text{
+  height: 50%; 
+  background-color: white;
+  
+}
+    .product img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .product h3 {
+      margin: 10px 0 5px;
+    }
+
+    .product p {
+      color: #f85606;
+      font-weight: bold;
+      margin: 0 0 10px;
+    }
+
+    .product button {
+      background-color: #f85606;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .product button:hover {
+      background-color: #d94a04;
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      text-align: center;
+      background-color: #f85606;
+      color: white;
+      padding: 15px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .search-bar {
+        width: 70%;
+      }
+
+      .product {
+        width: 45%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .product {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  
+  <header class="navbar">
+    <div class="logo">EMAN<span>.clone</span></div>
+    <div class="search-container">
+      <input type="text" class="search-bar" placeholder="Search in EMAN...">
+      <button class="search-btn">🔍</button>
+    </div>
+    <div class="cart">🛒 Cart (0)</div>
+  </header>
+
+  
+  <section class="banner">
+    <h1>Welcome to EMAN Clone</h1>
+    <p>Shop millions of products online with exclusive deals!</p>
+  </section>
+  <br>
+ 
+  <section class="banner">
+    <img src="../PICTURES/Screenshot 2025-12-13 133057.png" alt="">
+  </section>
+  
+  <section class="products">
+    <div class="product"data-name="haier cooler">
+      <img src="../PICTURES/7599732f774e977bddffbaa3cf0aef7d.png_400x400q80.png_.avif" alt="Product 4">
+      <h3>Haier Cooler</h3>
+      <p>$87
+      </p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product">
+      <img src="../PICTURES/download.jpg" class="text" alt="Product 3">
+      <h3>Camera</h3>
+      <p>$99</p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product">
+      <img src="../PICTURES/fr.avif" alt="Product 4">
+      <h3>Mobile</h3>
+      <p>$59</p>
+      <button>Add to Cart</button>
+    </div>
+     <div class="product">
+      <img src="../PICTURES/y.avif" alt="Product 4">
+      <h3>Headphone</h3>
+      <p>$65</p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product">
+      <img src="../PICTURES/download (1).jpg" alt="Product 1">
+      <h3>Game Glasses</h3>
+      <p>$299</p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product">
+      <img src="../PICTURES/download (2).jpg" alt="Product 2">
+      <h3>Perfume</h3>
+      <p>$49</p>
+      <button>Add to Cart</button>
+    </div>
+     <div class="product">
+      <img src="../PICTURES/hdj.png"  alt="Product 4" class= nav>
+      <h3>All Small Things</h3>
+      <p>$59</p>
+      <button>Add to Cart</button>
+    </div>
+    
+     <div class="product">
+      <img src="../PICTURES/cat.avif" alt="Product 4">
+      <h3> Persian Cat </h3>
+      <p>$59</p>
+      <button>Add to Cart</button>
+    </div>
+     <div class="product">
+      <img src="../PICTURES/chair.avif" alt="Product 4">
+      <h3>Chair</h3>
+      <p>$59</p>
+      <button>Add to Cart</button>
+    </div>
+     <div class="product">
+      <img src="../PICTURES/coloor.avif" alt="Product 4">
+      <h3> Color</h3>
+      <p>$87</p>
+      <button>Add to Cart</button>
+    </div>
+     <div class="product">
+      <img src="../PICTURES/calculator.avif" alt="Product 4">
+      <h3>Older Calculating Machine</h3>
+      <p>$76
+      </p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product">
+      <img src="../PICTURES/watch.avif" alt="Product 4">
+      <h3>Watch</h3>
+      <p>$23
+      </p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product">
+      <img src="../PICTURES/paint.avif" alt="Product 4">
+      <h3>Beautifull  Flower Painting</h3>
+      <p>$87
+      </p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product">
+      <img src="../PICTURES/lamp.avif" alt="Product 4">
+      <h3>Lamp </h3>
+      <p>$76
+      </p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product">
+      <img src="../PICTURES/paint.avif" alt="Product 4">
+      <h3>Beautifull  Flower Painting</h3>
+      <p>$87
+      </p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product">
+      <img src="../PICTURES/download (1).jpg" alt="">
+      <h3></h3>
+      <p></p>
+    </div>
+    <div class="product">
+      <img src="../PICTURES/download (2).jpg" alt="">
+      <h3></h3>
+      <p></p>
+      <div class="product">
+        <img src="./song.mp4" alt="">
+        <h3></h3>
+        <p></p>
+      </div>
+    </div>
+    <div class="product">
+      <img src="" alt="">
+      <h3></h3>
+      <p></p>
+    </div>
+    <div class="product">
+      <img src="" alt="">
+      <h3></h3>
+      <p></p>
+    </div>
+    
+    
+    
+  </section>
+  
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 EMAN Clone. Made for helping purposes only.</p>
+  </footer>
+
+  <!-- Script -->
+  
+<script>
+const searchInput = document.getElementById("searchInput");
+const searchBtn = document.getElementById("searchBtn");
+const products = document.querySelectorAll(".product");
+
+/* RESPONSIVE SEARCH BAR */
+function resizeSearch(){
+  if(window.innerWidth <= 480){
+    searchInput.style.width = "100%";
+  } else if(window.innerWidth <= 768){
+    searchInput.style.width = "80%";
+  } else {
+    searchInput.style.width = "60%";
+  }
+}
+window.addEventListener("resize", resizeSearch);
+resizeSearch();
+
+/* SEARCH FUNCTION */
+function searchProducts() {
+  const keyword = searchInput.value.toLowerCase().trim();
+  products.forEach(product => {
+    const name = product.dataset.name;
+    product.style.display = name.includes(keyword) ? "block" : "none";
+  });
+}
+
+/* SEARCH BUTTON CLICK */
+searchBtn.addEventListener("click", () => {
+  if(window.innerWidth <= 480 && searchInput.style.display !== "block") {
+    // mobile: first click opens search
+    searchInput.style.display = "block";
+    searchInput.focus();
+  } else {
+    searchProducts();
+  }
+});
+
+/* ENTER KEY SEARCH */
+searchInput.addEventListener("keydown", e => {
+  if(e.key === "Enter") searchProducts();
+});
+const cartBtn = document.querySelectorAll(".product button");
+const cartDisplay = document.querySelector(".cart");
+
+let cartCount = 0;
+
+cartBtn.forEach(btn => {
+  btn.addEventListener("click", () => {
+    cartCount++;
+    cartDisplay.textContent = `🛒 Cart (${cartCount})`;
+  });
+});
+     
+</script>
+
+
+  
+
+</body>
+</html>
