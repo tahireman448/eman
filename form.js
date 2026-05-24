@@ -1,5 +1,5 @@
 
-var correctPassword = "KINGALIRAZA"; 
+var correctPassword = "IQTIDAR12345"; 
 var userPassword = prompt("Please enter your password:"); 
 
 if (!userPassword) {
@@ -10,7 +10,7 @@ if (!userPassword) {
     alert("Incorrect password"); 
 }
 
-var secretNum = 7
+var secretNum = 12345
 var guess = +prompt("Guess the secret number (1-10):");
 if (guess === secretNum) {
     alert("Bingo! Correct answer");
@@ -18,12 +18,6 @@ if (guess === secretNum) {
     alert("Close enough to the correct answer");
 }
 
-var greeting;
-var hour = 13;
-if (hour < 18) {
-    greeting = "Good day";
-} else {
-    greeting = "Good evening";
-}
+
 
 
